@@ -13,7 +13,7 @@ Code changes
 
 #### Resources
 
-Maven had to be adapted to include all necessary resource files (i.e. all files in `src.main.webapp` and `src.main.resources.scenarios`). Locally this step was not necessary, because those directories were added to *"Order and Export"* in the *Eclipse Project Properties* and therefore copied to the output folder by the Eclipse Java Builder. On Bluemix, we only use Maven, so Maven needs to know about those resources too. This can be done by adding a `resources`-tag to the `pom.xml` file:
+First, we need to adapt Maven to include all necessary resource files (i.e. all files in `src.main.webapp` and `src.main.resources.scenarios`). Locally this step was not necessary, because those directories were added to *"Order and Export"* in the *Eclipse Project Properties* and therefore copied to the output folder by the Eclipse Java Builder. On Bluemix, we only use Maven, so Maven needs to know about those resources too. This can be done by adding a `resources`-tag to the `pom.xml` file:
 ```
 <build>
 	<resources>
@@ -124,3 +124,7 @@ cf push "${CF_APP}" -p smartdisposition-66-1.0-SNAPSHOT-jar-with-dependencies.ja
 #cf logs "${CF_APP}" --recent
 ```
 If you have done everything right, the app should now be up and running.
+
+## Additional notes
+
++ A typo in the path ```src/test/**resources**``` prevented Maven from automatically copying test resources to the output folder. Because of the fix, the plugin **Build Helper Maven Plugin** is no longer necessary.
